@@ -190,6 +190,12 @@ export function useDiceBet() {
         }
     }, [contract]);
 
+    const resetGame = useCallback(() => {
+        setLastBet(null);
+        setPendingBetId(null);
+        setIsLoading(false);
+    }, []);
+
     return {
         contract,
         isLoading,
@@ -200,6 +206,7 @@ export function useDiceBet() {
         getContractBalance,
         getMinBetAmount,
         getMaxBetAmount,
+        resetGame,
         isConnected,
         address,
     };

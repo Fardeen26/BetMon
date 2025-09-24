@@ -22,7 +22,7 @@ const monadChain = {
 };
 
 export const config = getDefaultConfig({
-    appName: 'Dice Bet dApp',
+    appName: 'BatMon dApp',
     projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'your-project-id',
     chains: [monadChain],
     ssr: true,

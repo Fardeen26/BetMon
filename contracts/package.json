@@ -1,7 +1,7 @@
 {
     "name": "dice-bet-contracts",
     "version": "1.0.0",
-    "description": "Smart contracts for Dice Bet dApp",
+    "description": "Smart contracts for BatMon dApp",
     "main": "index.js",
     "scripts": {
         "compile": "hardhat compile",

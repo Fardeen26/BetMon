@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dice Bet - Monad dApp",
-  description: "A dice betting game on Monad blockchain",
+  title: "BatMon - Monad dApp",
+  description: "A BatMonting game on Monad blockchain",
 };
 
 export default function RootLayout({

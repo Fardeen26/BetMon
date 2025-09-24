@@ -1,11 +1,13 @@
-# Dice Bet dApp - Monad Blockchain
+# BatMon dApp - Monad Blockchain
 
-A decentralized dice betting game built on the Monad testnet blockchain. Players can bet on dice rolls with on-chain verifiable randomness.
+A decentralized BatMonting game built on the Monad testnet blockchain. Players can bet on dice rolls with on-chain verifiable randomness.
 
 ## 🎲 Features
 
 - **Web3 Integration**: Connect MetaMask wallet and interact with smart contracts
+- **Dynamic Betting**: Set your own bet amount (0.001 - 1.0 ETH)
 - **Fair Gaming**: On-chain verifiable randomness ensures fair dice rolls
+- **Token Swap**: Convert winnings to USDC using 0x Protocol
 - **Real-time Updates**: Live transaction status and game results
 - **Beautiful UI**: Modern, responsive design with smooth animations
 - **Monad Testnet**: Built specifically for Monad blockchain (Chain ID: 10143)
@@ -66,17 +68,25 @@ Navigate to `http://localhost:3000`
 2. **Get Testnet Tokens**: Visit the [Monad faucet](https://faucet.monad.xyz) to get testnet ETH
 3. **Add Monad Testnet**: If not already added, MetaMask will prompt you to add the network
 4. **Choose Number**: Select a number between 1-6
-5. **Place Bet**: Click "Roll the Dice" to place your 0.05 ETH bet
-6. **Watch Results**: See the dice roll animation and find out if you won!
+5. **Set Bet Amount**: Enter your bet amount (0.001 - 1.0 ETH)
+6. **Place Bet**: Click "Roll the Dice" to place your bet
+7. **Watch Results**: See the dice roll animation and find out if you won!
+8. **Swap to USDC**: When you win, convert your MON winnings to USDC using 0x Protocol
 
 ## 🏗️ Architecture
 
 ### Smart Contract (`contracts/DiceBet.sol`)
 - **Ownable**: Platform owner can withdraw funds
 - **ReentrancyGuard**: Prevents reentrancy attacks
-- **Fixed Bet Amount**: 0.05 ETH per bet
+- **Dynamic Bet Amounts**: 0.001 - 1.0 ETH per bet
 - **On-chain Randomness**: Uses block-based randomness (simplified for demo)
 - **Events**: Emits BetPlaced, DiceRolled, and PayoutSent events
+
+### Token Swap Integration
+- **0x Protocol**: Decentralized token swapping
+- **Real-time Quotes**: Live pricing and conversion rates
+- **Secure Transactions**: Uses wagmi for transaction execution
+- **USDC Conversion**: Convert MON winnings to USDC
 
 ### Frontend (`src/`)
 - **Next.js 15**: React framework with App Router

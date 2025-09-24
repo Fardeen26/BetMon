@@ -53,7 +53,7 @@ export function BetForm({
                 </div>
                 <div className="flex justify-between items-center mt-2">
                     <span className="text-gray-300">Potential Win:</span>
-                    <span className="text-green-400 font-semibold">
+                    <span className="text-[#6e54ff] font-semibold">
                         {(parseFloat(betAmount || '0') * GAME_CONFIG.winMultiplier).toFixed(3)} ETH
                     </span>
                 </div>
@@ -101,7 +101,7 @@ export function BetForm({
                 className={`
           w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all duration-300
           ${selectedNumber && !disabled && !isPlacingBet
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white transform hover:scale-105 shadow-lg'
+                        ? 'bg-gradient-to-r bg-[#6e54ff] text-white transform hover:scale-105 shadow-lg'
                         : 'bg-gray-600 text-gray-400 cursor-not-allowed'
                     }
         `}

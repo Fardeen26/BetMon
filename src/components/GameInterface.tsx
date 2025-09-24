@@ -27,6 +27,8 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
         diceResult: number;
         isWinner: boolean;
         betId: number;
+        betAmount?: string;
+        userChoice?: number;
     } | null>(null);
 
     const {
@@ -37,6 +39,7 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
         placeBet,
         getMinBetAmount,
         getMaxBetAmount,
+        resetGame,
         isConnected: contractConnected,
     } = useDiceBet();
 
@@ -67,14 +70,17 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
                 diceResult: lastBet.diceResult,
                 isWinner: lastBet.isWinner,
                 betId: Math.floor(Math.random() * 1000) + 1, // Mock bet ID since we don't have it in the bet object
+                betAmount: betAmount, // Pass the current bet amount
+                userChoice: selectedNumber || undefined, // Pass the user's selected number
             });
             setIsRolling(false);
         }
-    }, [lastBet]);
+    }, [lastBet, betAmount, selectedNumber]);
 
     const handleNumberSelect = (number: number) => {
         setSelectedNumber(number);
         setGameResult(null);
+        setIsRolling(false);
     };
 
     const handlePlaceBet = async () => {
@@ -117,6 +123,10 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
         setSelectedNumber(null);
         setGameResult(null);
         setIsRolling(false);
+        // Reset bet amount to default
+        setBetAmount(GAME_CONFIG.defaultBetAmount);
+        // Reset all contract-related states
+        resetGame();
     };
 
     const handleBetAmountChange = (amount: string) => {
@@ -157,7 +167,7 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
                 {/* Game Content */}
                 <main className="max-w-4xl mx-auto">
                     <div className="text-center mb-8">
-                        <h1 className="text-4xl font-bold text-white mb-4">Dice Bet Game</h1>
+                        <h1 className="text-4xl font-bold text-white mb-4">BatMon Game</h1>
                         <p className="text-gray-300">
                             Choose a number between 1-6 and enter your bet amount
                         </p>
@@ -187,6 +197,7 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
                             <h2 className="text-2xl font-semibold text-white mb-6">Dice Roll</h2>
 
                             <DiceRoller
+                                key={gameResult ? `game-${gameResult.betId}` : 'new-game'}
                                 isRolling={isRolling}
                                 result={gameResult}
                                 onPlayAgain={handlePlayAgain}

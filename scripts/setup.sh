@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🎲 Setting up Dice Bet dApp..."
+echo "🎲 Setting up BatMon dApp..."
 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then

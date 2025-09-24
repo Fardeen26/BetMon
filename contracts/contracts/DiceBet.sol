@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /**
  * @title DiceBet
- * @dev A dice betting game contract using verifiable randomness
+ * @dev A BatMonting game contract using verifiable randomness
  * @notice This contract allows users to bet on dice rolls with on-chain verifiable randomness
  */
 contract DiceBet is Ownable, ReentrancyGuard {

@@ -1,6 +1,6 @@
-# Deployment Guide - Dice Bet dApp
+# Deployment Guide - BatMon dApp
 
-This guide will walk you through deploying the Dice Bet dApp to production.
+This guide will walk you through deploying the BatMon dApp to production.
 
 ## 📋 Prerequisites
 

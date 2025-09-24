@@ -27,7 +27,7 @@ export default function Home() {
         <header className="flex justify-between items-center mb-16 px-10">
           <div className="flex items-center space-x-2">
             <Dice1Icon className="w-6 h-6 text-white" />
-            <h1 className="text-xl font-bold text-white">Dice Bet</h1>
+            <h1 className="text-xl font-bold text-white">BatMon</h1>
           </div>
           {/* <div className="">
             <p className='text-lg font-semibold'>build for monad</p>
@@ -44,7 +44,7 @@ export default function Home() {
                 Roll the Dice
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto tracking-tight">
-                Experience the thrill of dice betting on the Monad blockchain.
+                Experience the thrill of BatMonting on the Monad blockchain.
                 Choose your number, place your bet, and watch the dice roll!
               </p>
             </div>
