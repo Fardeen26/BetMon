@@ -1,3 +1,5 @@
+deployed link: https://betmon.vercel.app/
+
 # BatMon dApp - Monad Blockchain
 
 A decentralized BatMonting game built on the Monad testnet blockchain. Players can bet on dice rolls with on-chain verifiable randomness.
