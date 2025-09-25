@@ -21,7 +21,7 @@ export const CONTRACT_CONFIG = {
 export const GAME_CONFIG = {
     minBetAmount: '0.001', // 0.001 ETH minimum
     maxBetAmount: '1.0', // 1.0 ETH maximum
-    defaultBetAmount: '0.01', // 0.01 ETH default
+    defaultBetAmount: '0.001', // 0.01 ETH default
     minChoice: 1,
     maxChoice: 6,
     winMultiplier: 2,

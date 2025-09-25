@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 // Token configuration for Monad testnet
 export const TOKENS = {
     MON: {
-        address: '0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701', // Native ETH/MON (0x standard)
+        address: '0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701',
         symbol: 'MON',
         name: 'Monad',
         decimals: 18,

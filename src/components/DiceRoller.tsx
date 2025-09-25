@@ -65,7 +65,7 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
             w-32 h-32 rounded-lg border-4 border-white/20 bg-white/10 
             flex items-center justify-center transition-all duration-500
             ${isRolling ? 'animate-spin' : ''}
-            ${showResult ? 'border-purple-500 bg-purple-500/20' : ''}
+            ${showResult ? 'border-[#6e54ff] bg-[#6e54ff]/30' : ''}
           `}>
                         {(() => {
                             const IconComponent = getDiceIcon(currentDice);
@@ -73,7 +73,7 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
                                 <IconComponent
                                     className={`
                     w-16 h-16 transition-all duration-300
-                    ${isRolling ? 'text-white animate-pulse' : 'text-white'}
+                    ${isRolling ? 'animate-pulse' : ''}
                     ${showResult ? (result?.isWinner ? 'text-green-400' : 'text-red-400') : ''}
                   `}
                                 />
@@ -83,7 +83,7 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
 
                     {/* Rolling indicator */}
                     {isRolling && (
-                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#6e54ff] rounded-full flex items-center justify-center">
                             <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         </div>
                     )}
@@ -93,17 +93,14 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
                 <div className="text-center">
                     {isRolling ? (
                         <div className="space-y-2">
-                            <p className="text-white text-lg font-semibold">Rolling Dice...</p>
-                            <p className="text-gray-300 text-sm">Please wait for the result</p>
+                            <p className="text-lg font-semibold tracking-tight">Rolling Dice...</p>
+                            <p className="text-gray-300 text-sm tracking-tight">Please wait for the result</p>
                         </div>
                     ) : showResult && result ? (
                         <div className="space-y-4">
                             <div className="text-center">
-                                <p className={`text-2xl font-bold ${getResultColor()}`}>
+                                <p className={`text-2xl font-bold tracking-tight ${getResultColor()}`}>
                                     {getResultMessage()}
-                                </p>
-                                <p className="text-white text-lg mt-2">
-                                    Dice rolled: <span className="font-bold">{result.diceResult}</span>
                                 </p>
                             </div>
 
@@ -111,20 +108,20 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
                             <div className="bg-white/5 rounded-lg p-4 border border-white/10">
                                 <div className="grid grid-cols-2 gap-4 text-sm">
                                     <div>
-                                        <span className="text-gray-300">Your Choice:</span>
-                                        <span className="text-white font-semibold ml-2">{result.userChoice || 'N/A'}</span>
+                                        <span className="tracking-tight">Your Choice:</span>
+                                        <span className="font-semibold ml-2 tracking-tight">{result.userChoice || 'N/A'}</span>
                                     </div>
                                     <div>
-                                        <span className="text-gray-300">Dice Result:</span>
-                                        <span className="text-white font-semibold ml-2">{result.diceResult}</span>
+                                        <span className="tracking-tight">Dice Result:</span>
+                                        <span className="font-semibold ml-2 tracking-tight">{result.diceResult}</span>
                                     </div>
                                     <div>
-                                        <span className="text-gray-300">Bet ID:</span>
-                                        <span className="text-white font-semibold ml-2">#{result.betId}</span>
+                                        <span className="tracking-tight">Bet ID:</span>
+                                        <span className="font-semibold ml-2 tracking-tight">#{result.betId}</span>
                                     </div>
                                     <div>
-                                        <span className="text-gray-300">Result:</span>
-                                        <span className={`font-semibold ml-2 ${result.isWinner ? 'text-green-400' : 'text-red-400'}`}>
+                                        <span className="tracking-tight">Result:</span>
+                                        <span className={`font-semibold ml-2 tracking-tight ${result.isWinner ? 'text-green-400' : 'text-red-400'}`}>
                                             {result.isWinner ? 'WIN' : 'LOSS'}
                                         </span>
                                     </div>
@@ -138,7 +135,7 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
                                         onClick={() => setShowSwapDialog(true)}
                                         className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
                                     >
-                                        Swap to USDC
+                                        <span className="tracking-tight">Swap to USDC</span>
                                     </button>
                                 )}
 
@@ -146,14 +143,14 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
                                     onClick={onPlayAgain}
                                     className="flex-1 bg-gradient-to-r bg-[#6e54ff] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
                                 >
-                                    Play Again
+                                    <span className="tracking-tight">Play Again</span>
                                 </button>
                             </div>
                         </div>
                     ) : (
                         <div className="space-y-2">
-                            <p className="text-gray-300 text-lg">Ready to Roll</p>
-                            <p className="text-gray-400 text-sm">Select a number and place your bet</p>
+                            <p className="text-lg tracking-tight">Ready to Roll</p>
+                            <p className="text-sm tracking-tight">Select a number and place your bet</p>
                         </div>
                     )}
                 </div>
@@ -164,7 +161,7 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
                         {[...Array(3)].map((_, i) => (
                             <div
                                 key={i}
-                                className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                                className="w-2 h-2 bg-[#6e54ff] rounded-full animate-bounce"
                                 style={{ animationDelay: `${i * 0.1}s` }}
                             />
                         ))}

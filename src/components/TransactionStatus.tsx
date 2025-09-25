@@ -11,7 +11,7 @@ export function TransactionStatus({ isPlacingBet, isRolling, selectedNumber }: T
 
     return (
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <h3 className="text-xl font-semibold text-white mb-4">Transaction Status</h3>
+            <h3 className="text-xl font-semibold mb-4">Transaction Status</h3>
 
             <div className="space-y-4">
                 {/* Step 1: Placing Bet */}
@@ -66,14 +66,14 @@ export function TransactionStatus({ isPlacingBet, isRolling, selectedNumber }: T
 
                 {/* Step 3: Result */}
                 <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold bg-gray-600 text-gray-400">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold bg-gray-600">
                         3
                     </div>
                     <div>
-                        <p className="font-medium text-gray-400">
+                        <p className="font-medium">
                             {isRolling ? 'Processing Result...' : 'Waiting for Result'}
                         </p>
-                        <p className="text-sm text-gray-300">
+                        <p className="text-sm">
                             {isRolling ? 'Checking if you won' : 'Result will appear here'}
                         </p>
                     </div>

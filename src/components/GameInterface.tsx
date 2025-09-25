@@ -137,7 +137,7 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center">
                 <div className="text-center">
-                    <h2 className="text-2xl font-bold text-white mb-4">Wallet Not Connected</h2>
+                    <h2 className="text-2xl font-bold mb-4 tracking-tight">Wallet Not Connected</h2>
                     <ConnectButton />
                 </div>
             </div>
@@ -145,38 +145,49 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br">
+        <div className="min-h-screen bg-white text-black">
             <div className="container mx-auto px-4 py-8">
                 {/* Header */}
                 <header className="flex justify-between items-center mb-8">
                     <button
                         onClick={onBack}
-                        className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
+                        className="flex items-center space-x-2 hover:text-gray-300 transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
-                        <span>Back to Home</span>
+                        <span className="tracking-tight">Back to Home</span>
                     </button>
                     <div className="flex items-center space-x-4">
-                        <div className="text-white">
-                            Balance: {balance ? `${parseFloat(balance.formatted).toFixed(4)} ${balance.symbol}` : 'Loading...'}
+                        <div className="">
+                            <span className="tracking-tight">Balance: {balance ? `${parseFloat(balance.formatted).toFixed(4)} ${balance.symbol}` : 'Loading...'}</span>
                         </div>
-                        <ConnectButton />
+                        <div className="[&_*]:!bg-black [&_*]:!text-white [&_*]:!border-none [&_*]:!rounded-full [&_button]:hover:!bg-[#5a47e6]">
+                            <ConnectButton showBalance={false} />
+                        </div>
                     </div>
                 </header>
 
                 {/* Game Content */}
                 <main className="max-w-4xl mx-auto">
-                    <div className="text-center mb-8">
-                        <h1 className="text-4xl font-bold text-white mb-4">BatMon Game</h1>
-                        <p className="text-gray-300">
+                    <div className="flex gap-4 items-center flex-col mt-8">
+                        <h1 className="text-5xl md:text-7xl max-w-2xl tracking-tighter text-center font-regular">
+                            <span className="text-spektr-cyan-50">Play Batmon</span>
+                        </h1>
+                        <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground max-w-2xl text-center">
                             Choose a number between 1-6 and enter your bet amount
                         </p>
                     </div>
 
-                    <div className="grid lg:grid-cols-2 gap-8">
+                    <div className="grid lg:grid-cols-2 gap-8 mt-12">
                         {/* Left Side - Bet Form */}
-                        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                            <h2 className="text-2xl font-semibold text-white mb-6">Place Your Bet</h2>
+                        <div className="bg-black/10 rounded-lg border border-white/20
+                        relative bg-gradient-to-br from-black/90 via-neutral-900/90 to-black/90 shadow-xl shadow-lime-900/10 backdrop-blur-md group
+                        p-6 flex flex-col overflow-hidden group
+                        transition-all duration-300
+                        hover:scale-[1.035] hover:-translate-y-1 text-white
+                        hover:shadow-lg
+                        
+                        ">
+                            <h2 className="text-2xl font-semibold mb-6 tracking-tight">Place Your Bet</h2>
 
                             <BetForm
                                 selectedNumber={selectedNumber}
@@ -193,8 +204,15 @@ export function GameInterface({ onBack }: GameInterfaceProps) {
                         </div>
 
                         {/* Right Side - Dice Roller */}
-                        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                            <h2 className="text-2xl font-semibold text-white mb-6">Dice Roll</h2>
+                        <div className="bg-white/10 rounded-lg border border-white/20
+                        relative bg-gradient-to-br from-black/90 via-neutral-900/90 to-black/90 shadow-xl shadow-lime-900/10 backdrop-blur-md group
+                        p-6 flex flex-col overflow-hidden group
+                        transition-all duration-300
+                        hover:scale-[1.035] hover:-translate-y-1 text-white
+                        hover:shadow-lg
+                        
+                        ">
+                            <h2 className="text-2xl font-semibold mb-6 tracking-tight">Dice Roll</h2>
 
                             <DiceRoller
                                 key={gameResult ? `game-${gameResult.betId}` : 'new-game'}

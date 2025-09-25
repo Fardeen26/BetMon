@@ -51,7 +51,6 @@ export function useDiceBet() {
         const handleBetPlaced = (betId: number, player: string) => {
             if (player.toLowerCase() === address?.toLowerCase()) {
                 setPendingBetId(betId);
-                toast.success(`Bet placed! ID: ${betId}`);
             }
         };
 
@@ -67,12 +66,6 @@ export function useDiceBet() {
                     isWinner,
                     diceResult,
                 });
-
-                if (isWinner) {
-                    toast.success(`🎉 You won! Dice rolled ${diceResult}`);
-                } else {
-                    toast.error(`😔 You lost. Dice rolled ${diceResult}`);
-                }
             }
         };
 
