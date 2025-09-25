@@ -83,10 +83,11 @@ Navigate to `http://localhost:3000`
 - **Events**: Emits BetPlaced, DiceRolled, and PayoutSent events
 
 ### Token Swap Integration
-- **0x Protocol**: Decentralized token swapping
-- **Real-time Quotes**: Live pricing and conversion rates
+- **Multi-Source Pricing**: CoinGecko API, 0x Protocol, and mock pricing fallbacks
+- **Real-time Quotes**: Live pricing and conversion rates with multiple data sources
+- **Demo Mode**: Mock pricing for hackathon showcase when APIs are unavailable
 - **Secure Transactions**: Uses wagmi for transaction execution
-- **USDC Conversion**: Convert MON winnings to USDC
+- **USDC Conversion**: Convert MON winnings to USDC with over-engineered swap functionality
 
 ### Frontend (`src/`)
 - **Next.js 15**: React framework with App Router

@@ -4,15 +4,17 @@ import { ethers } from 'ethers';
 // Token configuration for Monad testnet
 export const TOKENS = {
     MON: {
-        address: '0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701',
+        // Native MON token on Monad testnet (native currency)
+        address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // Native token address
         symbol: 'MON',
         name: 'Monad',
         decimals: 18,
         logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png'
     },
     USDC: {
-        // address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-        address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+        // USDC token on Monad testnet - using a placeholder address
+        // Note: This needs to be updated with the actual USDC contract address on Monad testnet
+        address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // Placeholder USDC address
         symbol: 'USDC',
         name: 'USD Coin',
         decimals: 6,
@@ -137,8 +139,26 @@ export class SwapService {
      * Format token amount for display
      */
     formatTokenAmount(amount: string, decimals: number): string {
-        const formatted = ethers.formatUnits(amount, decimals);
-        return parseFloat(formatted).toFixed(decimals === 6 ? 2 : 4);
+        try {
+            if (!amount || amount === '0') return '0.00';
+
+            // Check if the amount is already a decimal string (like a price)
+            if (amount.includes('.') && !amount.startsWith('0x')) {
+                // It's already a decimal string, just format it
+                const num = parseFloat(amount);
+                if (isNaN(num)) return '0.00';
+                return num.toFixed(decimals === 6 ? 2 : 4);
+            }
+
+            // It's a BigInt string, format it with ethers
+            const formatted = ethers.formatUnits(amount, decimals);
+            const num = parseFloat(formatted);
+            if (isNaN(num)) return '0.00';
+            return num.toFixed(decimals === 6 ? 2 : 4);
+        } catch (error) {
+            console.error('Error formatting token amount:', error);
+            return '0.00';
+        }
     }
 
     /**

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { diceIcons } from './GameInterface';
-import { SwapDialog } from './SwapDialog';
+import toast from 'react-hot-toast';
 
 interface DiceRollerProps {
     isRolling: boolean;
@@ -19,7 +19,6 @@ interface DiceRollerProps {
 export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) {
     const [currentDice, setCurrentDice] = useState(1);
     const [showResult, setShowResult] = useState(false);
-    const [showSwapDialog, setShowSwapDialog] = useState(false);
 
     // Animate dice during rolling
     useEffect(() => {
@@ -37,7 +36,6 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
             // Reset to initial state when no result
             setCurrentDice(1);
             setShowResult(false);
-            setShowSwapDialog(false);
         }
     }, [isRolling, result]);
 
@@ -54,6 +52,18 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
     const getResultMessage = () => {
         if (!result) return '';
         return result.isWinner ? '🎉 You Won!' : '😔 You Lost';
+    };
+
+    const handleClaimWinnings = () => {
+        if (result && result.isWinner && result.betAmount) {
+            const winningAmount = (parseFloat(result.betAmount) * 2).toFixed(4);
+            toast.success(`💰 ${winningAmount} MON transferred to your account!`);
+
+            // Simulate transfer delay
+            setTimeout(() => {
+                onPlayAgain();
+            }, 1500);
+        }
     };
 
     return (
@@ -130,18 +140,9 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
 
                             {/* Action Buttons */}
                             <div className="flex gap-3">
-                                {result.isWinner && (
-                                    <button
-                                        onClick={() => setShowSwapDialog(true)}
-                                        className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-                                    >
-                                        <span className="tracking-tight">Swap to USDC</span>
-                                    </button>
-                                )}
-
                                 <button
                                     onClick={onPlayAgain}
-                                    className="flex-1 bg-gradient-to-r bg-[#6e54ff] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                                    className="w-full bg-gradient-to-r bg-[#6e54ff] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
                                 >
                                     <span className="tracking-tight">Play Again</span>
                                 </button>
@@ -168,19 +169,6 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
                     </div>
                 )}
             </div>
-
-            {/* Swap Dialog */}
-            {result && (
-                <SwapDialog
-                    isOpen={showSwapDialog}
-                    onClose={() => setShowSwapDialog(false)}
-                    winningAmount={result.isWinner ? (parseFloat(result.betAmount || '0') * 2).toFixed(4) : '0'}
-                    onSwapComplete={() => {
-                        setShowSwapDialog(false);
-                        onPlayAgain();
-                    }}
-                />
-            )}
         </>
     );
 }

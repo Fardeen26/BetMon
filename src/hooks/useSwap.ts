@@ -52,19 +52,21 @@ export function useSwap() {
     const executeSwap = useCallback(async (swapQuote: SwapQuote) => {
         if (!address) {
             toast.error('Please connect your wallet');
-            return;
+            return false;
         }
 
         try {
-            sendTransaction({
+            await sendTransaction({
                 to: swapQuote.to as `0x${string}`,
                 data: swapQuote.data as `0x${string}`,
                 value: BigInt(swapQuote.value),
                 gas: BigInt(swapQuote.estimatedGas),
             });
+            return true;
         } catch (error: any) {
             console.error('Error executing swap:', error);
             toast.error('Failed to execute swap');
+            return false;
         }
     }, [address, sendTransaction]);
 

@@ -101,7 +101,7 @@ export function BetForm({
                 className={`
           w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all duration-300 tracking-tight
           ${selectedNumber && !disabled && !isPlacingBet
-                        ? 'bg-gradient-to-r bg-[#6e54ff] text-white transform hover:scale-105 shadow-lg'
+                        ? 'bg-gradient-to-r bg-[#6e54ff] text-white transform hover:scale-105 shadow-lg cursor-pointer'
                         : 'bg-[#6e54ff]/30 text-white cursor-not-allowed'
                     }
         `}
