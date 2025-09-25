@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { diceIcons } from './GameInterface';
-import toast from 'react-hot-toast';
 
 interface DiceRollerProps {
     isRolling: boolean;
@@ -54,17 +53,7 @@ export function DiceRoller({ isRolling, result, onPlayAgain }: DiceRollerProps) 
         return result.isWinner ? '🎉 You Won!' : '😔 You Lost';
     };
 
-    const handleClaimWinnings = () => {
-        if (result && result.isWinner && result.betAmount) {
-            const winningAmount = (parseFloat(result.betAmount) * 2).toFixed(4);
-            toast.success(`💰 ${winningAmount} MON transferred to your account!`);
-
-            // Simulate transfer delay
-            setTimeout(() => {
-                onPlayAgain();
-            }, 1500);
-        }
-    };
+    // Note: handleClaimWinnings function removed as it was unused
 
     return (
         <>

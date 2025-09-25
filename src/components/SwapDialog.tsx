@@ -21,7 +21,7 @@ export function SwapDialog({ isOpen, onClose, winningAmount, onSwapComplete }: S
     const [priceData, setPriceData] = useState<PriceData | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const { getSwapQuote, executeSwap, isPending, isConfirming, isSuccess } = useRealSwap();
+    const { getSwapQuote, executeSwap, isPending, isConfirming } = useRealSwap();
 
     const fetchSwapPrice = useCallback(async () => {
         setIsLoading(true);

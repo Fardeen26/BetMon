@@ -5,7 +5,7 @@ export interface PriceData {
     price: string;
     buyAmount: string;
     sellAmount: string;
-    source: 'coingecko' | 'mock' | '0x';
+    source: 'coingecko' | 'mock' | '0x' | 'real' | 'market' | 'fallback';
 }
 
 export class PriceService {
@@ -25,9 +25,7 @@ export class PriceService {
      * Get price with multiple fallback options
      */
     async getPrice(
-        sellAmount: string,
-        sellToken: string = 'MON',
-        buyToken: string = 'USDC'
+        sellAmount: string
     ): Promise<PriceData> {
         // Validate input
         if (!sellAmount || sellAmount === '0' || sellAmount === '') {
@@ -36,7 +34,7 @@ export class PriceService {
 
         try {
             // Try real price feeds first
-            const realPrice = await this.getRealPrice(sellAmount, sellToken, buyToken);
+            const realPrice = await this.getRealPrice(sellAmount);
             if (realPrice && realPrice.buyAmount !== '0') {
                 return realPrice;
             }
@@ -46,7 +44,7 @@ export class PriceService {
 
         try {
             // Try CoinGecko as fallback
-            const coingeckoPrice = await this.getCoinGeckoPrice(sellAmount, sellToken, buyToken);
+            const coingeckoPrice = await this.getCoinGeckoPrice(sellAmount);
             if (coingeckoPrice && coingeckoPrice.buyAmount !== '0') {
                 return coingeckoPrice;
             }
@@ -72,9 +70,7 @@ export class PriceService {
      * Get price from CoinGecko API
      */
     private async getCoinGeckoPrice(
-        sellAmount: string,
-        _sellToken: string,
-        _buyToken: string
+        sellAmount: string
     ): Promise<PriceData | null> {
         try {
             // Try to fetch MON token price from CoinGecko
@@ -148,7 +144,7 @@ export class PriceService {
     /**
      * Get real price from multiple sources
      */
-    private async getRealPrice(sellAmount: string, sellToken: string, buyToken: string): Promise<PriceData | null> {
+    private async getRealPrice(sellAmount: string): Promise<PriceData | null> {
         try {
             // Try to get real MON price from multiple sources
             const monPrice = await this.fetchRealMonPrice();
@@ -212,7 +208,7 @@ export class PriceService {
                             return price;
                         }
                     }
-                } catch (error) {
+                } catch {
                     continue;
                 }
             }
@@ -245,8 +241,8 @@ export class PriceService {
                 sellAmount: sellAmount,
                 source: 'market'
             };
-        } catch (error) {
-            console.error('Error getting real market price:', error);
+        } catch {
+            // Error already logged in fetchRealMonPrice
             // Fallback to basic calculation
             const sellAmountMon = parseFloat(ethers.formatEther(sellAmount));
             const usdcAmount = sellAmountMon * 0.0024; // Fallback price

@@ -13,7 +13,7 @@ export function useRealSwap() {
     const [quote, setQuote] = useState<RealSwapQuote | null>(null);
     const [swapService, setSwapService] = useState<ReturnType<typeof createRealSwapService> | null>(null);
 
-    const { sendTransaction, data: hash, error, isPending } = useSendTransaction();
+    const { data: hash, error, isPending } = useSendTransaction();
     const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
         hash,
     });
@@ -51,7 +51,7 @@ export function useRealSwap() {
 
             setQuote(swapQuote);
             return swapQuote;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error getting swap quote:', error);
             toast.error('Failed to get swap quote');
             return null;
@@ -78,7 +78,7 @@ export function useRealSwap() {
             }
 
             return false;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error executing swap:', error);
             toast.error('Failed to execute swap');
             return false;

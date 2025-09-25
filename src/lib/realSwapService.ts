@@ -1,6 +1,5 @@
 // Real swap service for production use
 import { ethers } from 'ethers';
-import { useAccount } from 'wagmi';
 
 // Real token addresses for MONAD testnet
 export const REAL_TOKENS = {
@@ -18,18 +17,7 @@ export const REAL_TOKENS = {
     }
 };
 
-// Uniswap V3 Router contract ABI (simplified)
-const UNISWAP_ROUTER_ABI = [
-    "function exactInputSingle((address tokenIn, address tokenOut, uint24 fee, address recipient, uint256 deadline, uint256 amountIn, uint256 amountOutMinimum, uint256 sqrtPriceLimitX96)) external payable returns (uint256 amountOut)",
-    "function WETH() external pure returns (address)"
-];
-
-// Simple swap contract ABI for direct token swaps
-const SWAP_CONTRACT_ABI = [
-    "function swapExactETHForTokens(uint256 amountOutMin, address[] calldata path, address to, uint256 deadline) external payable returns (uint256[] memory amounts)",
-    "function swapExactTokensForETH(uint256 amountIn, uint256 amountOutMin, address[] calldata path, address to, uint256 deadline) external returns (uint256[] memory amounts)",
-    "function getAmountsOut(uint256 amountIn, address[] calldata path) external view returns (uint256[] memory amounts)"
-];
+// Note: ABI constants removed as they were unused
 
 export interface RealSwapQuote {
     inputAmount: string;
@@ -62,7 +50,7 @@ export class RealSwapService {
             const inputAmountWei = ethers.parseEther(inputAmount);
 
             // Get real price for the conversion
-            const price = await this.getTokenPrice(inputToken, outputToken);
+            const price = await this.getTokenPrice(inputToken);
 
             // Calculate output amount based on actual input amount
             const inputAmountFloat = parseFloat(inputAmount);
@@ -122,7 +110,7 @@ export class RealSwapService {
     /**
      * Get real token price
      */
-    private async getTokenPrice(inputToken: string, outputToken: string): Promise<number> {
+    private async getTokenPrice(inputToken: string): Promise<number> {
         try {
             // For MON (native currency on MONAD), get real price
             if (inputToken === REAL_TOKENS.MON.address) {
@@ -136,7 +124,7 @@ export class RealSwapService {
                     return ethPrice * 0.0008; // Approximately $0.0024
                 }
             }
-        } catch (error) {
+        } catch {
             console.warn('Price fetch failed, using fallback');
         }
 

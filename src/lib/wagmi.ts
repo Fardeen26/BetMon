@@ -1,5 +1,4 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-import { monadTestnet } from 'wagmi/chains';
 import { MONAD_TESTNET } from './config';
 
 // Define Monad testnet chain for wagmi

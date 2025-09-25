@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 import { ethers } from 'ethers';
 import { swapService, TOKENS } from '@/lib/swap';
@@ -40,7 +40,7 @@ export function useSwap() {
 
             setQuote(swapQuote);
             return swapQuote;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error getting swap quote:', error);
             toast.error('Failed to get swap quote');
             return null;
@@ -63,7 +63,7 @@ export function useSwap() {
                 gas: BigInt(swapQuote.estimatedGas),
             });
             return true;
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error executing swap:', error);
             toast.error('Failed to execute swap');
             return false;
@@ -71,13 +71,17 @@ export function useSwap() {
     }, [address, sendTransaction]);
 
     // Handle transaction status
-    if (isSuccess) {
-        toast.success('Swap completed successfully!');
-    }
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success('Swap completed successfully!');
+        }
+    }, [isSuccess]);
 
-    if (error) {
-        toast.error('Swap transaction failed');
-    }
+    useEffect(() => {
+        if (error) {
+            toast.error('Swap transaction failed');
+        }
+    }, [error]);
 
     return {
         getSwapQuote,
